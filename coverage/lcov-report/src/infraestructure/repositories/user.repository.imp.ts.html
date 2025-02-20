@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">63.63% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/29</span>
+                <span class='fraction'>21/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">63.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/29</span>
+                <span class='fraction'>21/33</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -91,7 +91,11 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -104,48 +108,56 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { UserDatasource } from "../../domain/datasources/user.datasource";
 import { CreateUserDto } from "../../domain/dtos";
 import { UpdateUserDto } from "../../domain/dtos/users/update-user.dto";
 import { UserEntity } from "../../domain/entities/users/user.entity";
 import { UserRepository } from "../../domain/repositories/user.repository";
-import { CustomResponse } from "../../shared/response/custom.response";
+import { PasswordHasher } from "../../utils/passwordHasher/passwordHasher";
+import { CustomResponse } from "../../utils/response/custom.response";
 &nbsp;
 export class UserRepositoryImpl implements UserRepository {
 &nbsp;
     constructor(
-        private readonly dataSource: UserDatasource
+        private readonly dataSource: UserDatasource,
+        private readonly passwordHasher: PasswordHasher
     ) { }
-    create(createUserDto: CreateUserDto): Promise&lt;UserEntity | CustomResponse&gt; {
-        return this.dataSource.create(createUserDto);
-    }
-    getAll(page:number, per_page:number): Promise&lt;UserEntity[] | CustomResponse&gt; {
-        return this.dataSource.getAll(page, per_page);
-    }
-    findById(id: number): Promise&lt;UserEntity | CustomResponse&gt; {
-        return this.dataSource.findById(id);
-    }
-    update(id: number, updateUserDto: UpdateUserDto): Promise&lt;UserEntity | CustomResponse&gt; {
-        return this.dataSource.update(id, updateUserDto);
-    }
-    delete(id: number): Promise&lt;UserEntity | CustomResponse&gt; {
-        return this.dataSource.delete(id);
-    }
+    async <span class="fstat-no" title="function not covered" >create(createUserDto: CreateUserDto, user_audits: string): Promise&lt;UserEntity | CustomResponse&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        const hashedPassword = await this.passwordHasher.hashPassword(createUserDto.password)</span>
+<span class="cstat-no" title="statement not covered" >        createUserDto.password = hashedPassword</span>
+<span class="cstat-no" title="statement not covered" >        return this.dataSource.create(createUserDto, user_audits);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="fstat-no" title="function not covered" >    getAll(page: number, per_page: number): Promise&lt;UserEntity[] | CustomResponse&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return this.dataSource.getAll(page, per_page);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="fstat-no" title="function not covered" >    findById(id: string): Promise&lt;UserEntity | CustomResponse&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return this.dataSource.findById(id);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="fstat-no" title="function not covered" >    update(id: string, updateUserDto: UpdateUserDto, user_audits: string): Promise&lt;UserEntity | CustomResponse&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return this.dataSource.update(id, updateUserDto, user_audits);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="fstat-no" title="function not covered" >    delete(id: string, user_audits: string): Promise&lt;UserEntity | CustomResponse&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return this.dataSource.delete(id, user_audits);</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
 }</pre></td></tr></table></pre>
 
@@ -154,7 +166,7 @@ export class UserRepositoryImpl implements UserRepository {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-27T03:56:40.899Z
+                at 2025-02-20T18:29:45.641Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

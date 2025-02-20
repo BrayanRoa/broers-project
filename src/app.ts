@@ -1,11 +1,6 @@
-import { Server } from "./presentation/server"
-// import { AppRoutes } from "./presentation/routes";
+import { Server } from "./presentation/server";
 
-(async () => {
-    main()
-})()
+const server = new Server();
+const app = server.app; // Exporta la instancia de Express para los tests
 
-function main() {
-    const server = new Server()
-    server.listen()
-}
+export { app, server };

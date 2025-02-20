@@ -24,7 +24,7 @@ export class ValidateEmail implements ValidateEmailUseCase {
         if (exist instanceof CustomResponse) {
             return exist
         }
-        await this.authRepository.updateUser(id, { emailValidated: true })
+        // await this.authRepository.updateUser(id, { emailValidated: true })
         return "Email successfully verified"
     }
 

@@ -1,10 +1,10 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateUserDto {
 
     @IsString()
     @IsNotEmpty()
-    public readonly name!: string;
+    public readonly fullName!: string;
 
     @IsEmail()
     @IsNotEmpty()
@@ -14,4 +14,7 @@ export class CreateUserDto {
     @IsNotEmpty()
     public password!: string;
 
+    @IsBoolean()
+    @IsNotEmpty()
+    public isActive: boolean = true;
 }

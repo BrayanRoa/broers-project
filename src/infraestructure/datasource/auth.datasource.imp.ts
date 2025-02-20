@@ -19,7 +19,7 @@ export class AuthDatasourceImp extends BaseDatasource implements AuthDatasource 
                         { id: param }
                     ],
                     AND: [
-                        { deleted_at: null, emailValidated: true },
+                        { deleted_at: null },
                     ]
                 }
             })

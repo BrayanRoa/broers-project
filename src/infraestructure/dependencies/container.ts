@@ -6,12 +6,16 @@ import { EmailService } from '../../utils/emails/email.service';
 import { envs } from './../../config/envs';
 import { UserDatasourceImp } from '../datasource/user.datasource.imp';
 import { UserRepositoryImpl } from '../repositories/user.repository.imp';
+import { PasswordResetTokenDatasourceImp } from '../datasource/reset-password-token.datasource.imp';
+import { PasswordResetTokenRepositoryImp } from '../repositories/reset-password-token.repository.imp';
 
 interface IContainer {
     passwordHasher: BcryptPasswordHasher,
     authDatasource: AuthDatasourceImp,
     authRepository: AuthRepositoryImpl,
     emailService: EmailService,
+    resetPasswordDatasource: PasswordResetTokenDatasourceImp,
+    resetPasswordRepository: PasswordResetTokenRepositoryImp
 }
 
 export const container: AwilixContainer<IContainer> = createContainer<IContainer>({
@@ -28,4 +32,6 @@ container.register({
         mailerEmail: envs.MAILER_EMAIL,
         senderEmailPassword: envs.MAILER_SECRET_KEY
     })),
+    resetPasswordDatasource: asClass(PasswordResetTokenDatasourceImp).singleton(),
+    resetPasswordRepository: asClass(PasswordResetTokenRepositoryImp).singleton(),
 });

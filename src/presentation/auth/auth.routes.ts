@@ -86,7 +86,7 @@ export class AuthRoutes extends BaseRouter<AuthController, AuthMiddleware, AuthR
         *          schema:
         *            type: object
         *            properties:
-        *              name:
+        *              fullName:
         *                type: string
         *              email:
         *                type: string
@@ -110,12 +110,104 @@ export class AuthRoutes extends BaseRouter<AuthController, AuthMiddleware, AuthR
         *                  example: CREATED
         *                data: 
         *                  type: string
-        */ 
+        */
         this.router.post(`${prefix}/register`,
             (req, res, next) => this.middleware.validateDto(req, res, next, "create"),
             this.controller.register
         )
-        
+
+        /**
+         * @swagger
+         * /auth/refresh-token:
+         *  post:
+         *    tags: [Auth]
+         *    summary: Refresh authentication token
+         *    description: Generates a new access token using a valid refresh token.
+         *    requestBody:
+         *      required: true
+         *      content:
+         *        application/json:
+         *          schema:
+         *            type: object
+         *            properties:
+         *              refreshToken:
+         *                type: string
+         *                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+         *    responses:
+         *      '200':
+         *        description: New access token generated successfully.
+         *        content:
+         *          application/json:
+         *            schema:
+         *              type: object
+         *              properties:
+         *                token:
+         *                  type: string
+         *                  example: "newAccessToken123..."
+         *      '400':
+         *        description: Invalid or expired refresh token.
+         *        content:
+         *          application/json:
+         *            schema:
+         *              type: object
+         *              properties:
+         *                message:
+         *                  type: string
+         *                  example: "Invalid or expired refresh token"
+         *      '401':
+         *        description: Unauthorized request.
+         *        content:
+         *          application/json:
+         *            schema:
+         *              type: object
+         *              properties:
+         *                message:
+         *                  type: string
+         *                  example: "Unauthorized"
+         */
+        this.router.post(`${prefix}/refresh-token`, this.controller.refreshToken);
+
+        /**
+         * @swagger
+         * /auth/reset-password:
+         *  post:
+         *    tags: [Auth]
+         *    summary: Solicitar recuperación de contraseña
+         *    description: Envía un correo con un enlace para restablecer la contraseña del usuario.
+         *    requestBody:
+         *      required: true
+         *      content:
+         *        application/json:
+         *          schema:
+         *            type: object
+         *            properties:
+         *              email:
+         *                type: string
+         *                format: email
+         *                example: usuario@example.com
+         *    responses:
+         *      '200':
+         *        description: Se envió el enlace de recuperación de contraseña.
+         *        content:
+         *          application/json:
+         *            schema:
+         *              type: object
+         *              properties:
+         *                status:
+         *                  type: integer
+         *                  example: 200
+         *                statusMsg:
+         *                  type: string
+         *                  example: SUCCESS
+         *      '400':
+         *        description: Petición incorrecta (correo no válido o no registrado).
+         *      '500':
+         *        description: Error interno del servidor.
+         */
+        this.router.post(`${prefix}/reset-password`, this.controller.recoveryPassword)
+
+        this.router.post(`${prefix}/change-password/:token`, this.controller.changePassword);
+
         this.router.get(`${prefix}/validate-email/:token`, this.controller.validateEmail)
     }
 }

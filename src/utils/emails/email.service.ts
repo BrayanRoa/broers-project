@@ -68,7 +68,6 @@ export class EmailService {
                     <img class="card-image" src="welcome.jpg" alt="Card Image">
                     <h2 class="card-title">¡Bienvenido a Nuestra Aplicación!</h2>
                     <p class="card-description">Estamos emocionados de tenerte aquí. Empieza a explorar todas nuestras características.</p>
-                    <a href=${link}>validate-token</a>
                 </div>`,
             attachments: [
                 {

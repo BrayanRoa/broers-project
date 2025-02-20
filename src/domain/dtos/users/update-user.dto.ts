@@ -4,22 +4,17 @@ export class UpdateUserDto {
 
     @IsString()
     @IsOptional()
-    public readonly name?: string;
-
+    public readonly fullName?: string;
+    
     @IsEmail()
     @IsOptional()
     public readonly email?: string;
-
+    
     @IsString()
     @IsOptional()
-    public readonly password?: string;
-
-    @IsOptional()
+    public password?: string;
+    
     @IsBoolean()
-    public readonly emailValidated?: boolean;
-
     @IsOptional()
-    @IsBoolean()
-    public readonly email_sent?: boolean;
-
+    public isActive?: boolean = true;
 }

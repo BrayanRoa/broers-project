@@ -13,16 +13,14 @@ export class RegisterUser implements RegisterUserUseCase {
         private emailService: EmailService
     ) { }
     async execute(dto: CreateUserDto): Promise<string | CustomResponse> {
+        dto.isActive = true
         const resp = await this.authRepository.registerUser(dto)
         if (resp instanceof CustomResponse) return resp
         try {
             await this.emailService.welcomeEmail(resp.id, dto.email)
-            await this.authRepository.updateUser(resp.id, { email_sent: true })
             return "User registered successfully, please verify your email address"
         } catch (error) {
             return new CustomResponse(`mail could not be sent`, 500)
-            // TODO AQUI DEBERIA ALMACENAR EN UN LOG Y NO MOSTRARLE AL USUARIO EL PROBLEMA
-            // return new CustomResponse(`Failed to send email: ${error}`, 500)
         }
     }
 

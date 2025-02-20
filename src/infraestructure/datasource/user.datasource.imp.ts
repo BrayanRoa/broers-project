@@ -19,9 +19,8 @@ export class UserDatasourceImp extends BaseDatasource implements UserDatasource 
             const new_user = await BaseDatasource.prisma.user.create({
                 data: createUserDto,
             });
-            const { password, ...rest } = UserEntity.fromObject(new_user);
-            this.auditSave(rest, "CREATE", user_audits)
-            return { ...rest };
+            this.auditSave(new_user, "CREATE", user_audits)
+            return UserEntity.fromObject(new_user);
         });
     }
     getAll(page: number, per_page: number): Promise<UserEntity[] | CustomResponse> {
@@ -30,16 +29,14 @@ export class UserDatasourceImp extends BaseDatasource implements UserDatasource 
                 where: {
                     AND:
                         [
-                            { email_sent: true },
-                            { emailValidated: true },
                             { deleted_at: null }
                         ]
                 }
             })
             if (users.length === 0) throw new CustomResponse("there are no users", 404)
             const usersWithoutPassword = users.map(user => {
-                const { password, ...rest } = UserEntity.fromObject(user);
-                return { ...rest };
+                // const { password, ...rest } = 
+                return UserEntity.fromObject(user);
             });
 
             return usersWithoutPassword;
@@ -52,13 +49,11 @@ export class UserDatasourceImp extends BaseDatasource implements UserDatasource 
                     AND:
                         [
                             { id, deleted_at: null },
-                            { emailValidated: true }
                         ]
                 }
             });
             if (!user) throw new CustomResponse(`User with id ${id} not found`, 404);
-            const { password, ...rest } = UserEntity.fromObject(user);
-            return { ...rest }
+            return UserEntity.fromObject(user);
         })
     }
     update(id: string, updateUserDto: UpdateUserDto, user_audits: string): Promise<UserEntity | CustomResponse> {
