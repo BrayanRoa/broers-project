@@ -11,7 +11,8 @@
     "prisma:migrate:prod": "prisma migrate deploy",
     "test": "cross-env NODE_ENV=test jest",
     "test:watch": "npm run prisma:migrate:test && jest --watchAll --coverage",
-    "test:coverage": "npm run prisma:migrate:test && jest --coverage"
+    "test:coverage": "npm run prisma:migrate:test && jest --coverage",
+    "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "Brayan Roa",

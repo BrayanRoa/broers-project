@@ -54,3 +54,9 @@ if you have Windows installed you must use this script in your package.json
 "dev": "NODE_ENV=development tsnd --respawn --clear src/app.ts",
 "start": "set NODE_ENV=production&&npm run build && node dist/app.js",
 ```
+
+
+6. execute the following commands
+```npm run seed```
+
+```npx run dev``
